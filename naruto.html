@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ناروتو - الحلقات | Cartoon Galaxy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #0a1b2a 0%, #112f4a 100%);
+      color: #e0e6f0;
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 1.5rem 3rem;
+      direction: rtl;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(10, 27, 42, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 59, 59, 0.3);
+      margin-bottom: 2rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo a {
+      color: #ff3b3b;
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #ff3b3b;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.7rem;
+    }
+
+    nav a {
+      color: #cfd8f7;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    nav a:hover {
+      color: #ff3b3b;
+      text-shadow: 0 0 12px #ff3b3b;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: #1a2a52;
+      width: 650px;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem 1rem;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: grid;
+    }
+
+    .dropdown-content a {
+      color: #e0e6f0;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 6px;
+      background: rgba(255, 59, 59, 0.15);
+      transition: background 0.3s, box-shadow 0.3s;
+      text-align: center;
+      box-shadow: 0 0 4px rgba(255, 59, 59, 0.4);
+    }
+
+    .dropdown-content a:hover {
+      background: #ff3b3b;
+      box-shadow: 0 0 15px #ff3b3b;
+      color: #fff;
+    }
+
+    /* Page Title */
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #ff3b3b;
+      text-shadow: 0 0 10px #ff3b3b;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: 2px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* Episodes Grid */
+    .episodes-container {
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.3rem;
+    }
+
+    /* Episode Card */
+    .episode-card {
+      background: rgba(20, 45, 75, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow:
+        0 0 15px rgba(255, 59, 59, 0.5),
+        inset 0 0 6px rgba(255, 59, 59, 0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .episode-card:hover {
+      transform: translateY(-10px);
+      box-shadow:
+        0 0 25px rgba(255, 59, 59, 0.9),
+        inset 0 0 15px rgba(255, 59, 59, 0.5);
+    }
+
+    .episode-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+      transition: transform 0.4s ease;
+    }
+
+    .episode-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .episode-content {
+      padding: 1rem 1.3rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .episode-number {
+      font-weight: 700;
+      color: #ff3b3b;
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px #ff3b3b;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .episode-title {
+      color: #ff6b6b;
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 8px #ff6b6b;
+      line-height: 1.2;
+    }
+
+    .episode-description {
+      flex-grow: 1;
+      font-size: 1rem;
+      color: #d1d9efcc;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .watch-link {
+      align-self: flex-start;
+      background: #ff3b3b;
+      color: #fff;
+      padding: 0.5rem 1.1rem;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 12px #ff3b3bcc;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .watch-link:hover {
+      background: #ff6060;
+      box-shadow: 0 0 25px #ff6060cc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+      }
+      .episodes-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .episode-card img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="new.html">Cartoon Galaxy</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="new.html">الرئيسية</a></li>
+          <li class="dropdown">
+            <a href="#">الرسوم المتحركة وأنمي</a>
+            <div class="dropdown-content">
+              <a href="Dragonball.html">دراغون بول</a>
+              <a href="mystery.html">فريق الغموض</a>
+              <a href="hero.html">مدينة الأبطال</a>
+              <a href="Conan.html">المحقق كونان</a>
+              <a href="naruto.html">ناروتو</a>
+              <a href="one-piece.html">ون بيس</a>
+              <a href="attackontitan.html">هجوم العمالقة</a>
+              <a href="fullmetal.html">الكيميائي المعدني الكامل</a>
+              <a href="deathnote.html">مذكرة الموت</a>
+              <a href="bleach.html">بليتش</a>
+              <a href="demonslayer.html">قاتل الشياطين</a>
+              <a href="mha.html">أكاديمية بطلي</a>
+              <a href="jojo.html">مغامرة جوجو الغريبة</a>
+              <a href="spiritedaway.html">الرحلة الروحية</a>
+              <a href="ghibli.html">استوديو غيبلي الكلاسيكي</a>
+              <a href="spongebob.html">سبونجبوب سكوير بانتس</a>
+              <a href="simpsons.html">عائلة سمبسون</a>
+              <a href="tomjerry.html">توم وجيري</a>
+              <a href="looneytunes.html">لوني تونز</a>
+              <a href="pokemon.html">بوكيمون (كرتون)</a>
+              <a href="teentitans.html">تيين تيتانز جو!</a>
+              <a href="adventuretime.html">وقت المغامرة</a>
+            </div>
+          </li>
+          <li><a href="#newsletter">النشرة الإخبارية</a></li>
+          <li><a href="login.html">تسجيل الدخول</a></li>
+          <li><a href="signup.html">إنشاء حساب</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <h1>حلقات ناروتو 1–300</h1>
+
+  <section class="episodes-container" aria-label="قائمة حلقات ناروتو">
+
+    <article class="episode-card">
+      <img src="naruto1.jpg" alt="صورة الحلقة 1" />
+      <div class="episode-content">
+        <div class="episode-number">الحلقة 1</div>
+        <h2 class="episode-title">الوصول إلى النينجا</h2>
+        <p class="episode-description">ناروتو يبدأ رحلته ليصبح النينجا الأقوى في قريته.</p>
+        <a href="naruto-ep1.html" class="watch-link">شاهد الآن</a>
+      </div>
+    </article>
+
+    <article class="episode-card">
+      <img src="naruto2.jpg" alt="صورة الحلقة 2" />
+      <div class="episode-content">
+        <div class="episode-number">الحلقة 2</div>
+        <h2 class="episode-title">مهمة الفريق 7</h2>
+        <p class="episode-description">ناروتو وساسوكي وساكورا يبدأون مهمتهم الأولى تحت إشراف كاكاشي.</p>
+        <a href="naruto-ep2.html" class="watch-link">شاهد الآن</a>
+      </div>
+    </article>
+
+    <article class="episode-card">
+      <img src="naruto3.jpg" alt="صورة الحلقة 3" />
+      <div class="episode-content">
+        <div class="episode-number">الحلقة 3</div>
+        <h2 class="episode-title">تحدي السهام المتحركة</h2>
+        <p class="episode-description">يواجه ناروتو وفريقه اختبارًا صعبًا لاجتياز تدريب النينجا.</p>
+        <a href="naruto-ep3.html" class="watch-link">شاهد الآن</a>
+      </div>
+    </article>
+
+    <!-- Add more episodes here -->
+
+  </section>
+
+</body>
+</html>

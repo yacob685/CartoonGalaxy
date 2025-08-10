@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cartoon Galaxy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #0a1b2a 0%, #112f4a 100%);
+      color: #e0e6f0;
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 1.5rem 3rem;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(10, 27, 42, 0.9);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 59, 59, 0.3);
+      margin-bottom: 2rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo a {
+      color: #ff3b3b;
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #ff3b3b;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.7rem;
+    }
+
+    nav a {
+      color: #cfd8f7;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    nav a:hover {
+      color: #ff3b3b;
+      text-shadow: 0 0 12px #ff3b3b;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: #1a2a52;
+      width: 650px;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem 1rem;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: grid;
+    }
+
+    .dropdown-content a {
+      color: #e0e6f0;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 6px;
+      background: rgba(255, 59, 59, 0.15);
+      transition: background 0.3s, box-shadow 0.3s;
+      text-align: center;
+      box-shadow: 0 0 4px rgba(255, 59, 59, 0.4);
+    }
+
+    .dropdown-content a:hover {
+      background: #ff3b3b;
+      box-shadow: 0 0 15px #ff3b3b;
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      background: url('collage.jpg') center/cover no-repeat;
+      height: 60vh;
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 59, 59, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ff3b3b;
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 27, 42, 0.7);
+      border-radius: 15px;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 1rem;
+      font-weight: 700;
+      text-shadow: 0 0 10px #ff3b3b;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #ffdede;
+    }
+
+    .hero button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background: #ff3b3b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 800;
+      box-shadow: 0 0 15px #ff3b3baa;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #ff6666;
+      box-shadow: 0 0 30px #ff6666bb;
+    }
+
+    /* Gallery */
+    .gallery {
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.3rem;
+    }
+
+    .card {
+      background: rgba(20, 45, 75, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow:
+        0 0 15px rgba(255, 59, 59, 0.5),
+        inset 0 0 6px rgba(255, 59, 59, 0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow:
+        0 0 25px rgba(255, 59, 59, 0.9),
+        inset 0 0 15px rgba(255, 59, 59, 0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1rem 1.3rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      margin-bottom: 0.6rem;
+      color: #ff3b3b;
+      font-weight: 800;
+      text-shadow: 0 0 8px #ff3b3b;
+    }
+
+    .card-content p {
+      flex-grow: 1;
+      font-size: 1rem;
+      color: #d1d9efcc;
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+      line-height: 1.4;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-content a {
+      align-self: flex-start;
+      background: #ff3b3b;
+      color: #fff;
+      padding: 0.5rem 1.1rem;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 12px #ff3b3bcc;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-content a:hover {
+      background: #ff6060;
+      box-shadow: 0 0 25px #ff6060cc;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 27, 42, 0.9);
+      color: #e0e6f0;
+      text-align: center;
+      padding: 1.8rem 27.3rem;
+      margin-top: 3rem;
+      border-radius: 10px;
+      max-width: 1200px;
+      box-shadow: 0 0 20px rgba(255, 59, 59, 0.3);
+    }
+
+    footer .socials {
+      margin-bottom: 1rem;
+    }
+
+    footer .socials a {
+      margin: 0 0.6rem;
+      color: #ff3b3b;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+      filter: drop-shadow(0 0 3px #ff3b3b);
+    }
+
+    footer .socials a:hover {
+      color: #ff6666;
+      filter: drop-shadow(0 0 8px #ff6666);
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .dropdown-content {
+        width: 100vw;
+        left: 0;
+        top: 100%;
+        border-radius: 0;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .card img {
+        height: 180px;
+      }
+    }
+    
+     
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+   <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="new.html">Cartoon Galaxy</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="new.html">الرئيسية</a></li>
+          <li class="dropdown">
+            <a href="#">الرسوم المتحركة وأنمي</a>
+            <div class="dropdown-content">
+              <a href="Dragonball.html">دراغون بول</a>
+              <a href="mystery.html">فريق الغموض</a>
+              <a href="hero.html">مدينة الأبطال</a>
+              <a href="Conan.html">المحقق كونان</a>
+              <a href="naruto.html">ناروتو</a>
+              <a href="one-piece.html">ون بيس</a>
+              <a href="attackontitan.html">هجوم العمالقة</a>
+              <a href="fullmetal.html">الكيميائي المعدني الكامل</a>
+              <a href="deathnote.html">مذكرة الموت</a>
+              <a href="bleach.html">بليتش</a>
+              <a href="demonslayer.html">قاتل الشياطين</a>
+              <a href="mha.html">أكاديمية بطلي</a>
+              <a href="jojo.html">مغامرة جوجو الغريبة</a>
+              <a href="spiritedaway.html">الرحلة الروحية</a>
+              <a href="ghibli.html">استوديو غيبلي الكلاسيكي</a>
+              <a href="spongebob.html">سبونجبوب سكوير بانتس</a>
+              <a href="simpsons.html">عائلة سمبسون</a>
+              <a href="tomjerry.html">توم وجيري</a>
+              <a href="looneytunes.html">لوني تونز</a>
+              <a href="pokemon.html">بوكيمون (كرتون)</a>
+              <a href="teentitans.html">تيين تيتانز جو!</a>
+              <a href="adventuretime.html">وقت المغامرة</a>
+            </div>
+          </li>
+          <li><a href="#newsletter">النشرة الإخبارية</a></li>
+          <li><a href="login.html">تسجيل الدخول</a></li>
+          <li><a href="signup.html">إنشاء حساب</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+ <section class="hero">
+  <div class="hero-content">
+    <h1>مرحبًا بكم في جالاكسي الكرتون</h1>
+    <p>استكشف أفضل الرسوم المتحركة والأنمي من جميع أنحاء العالم. شاهد مفضلاتك أو اكتشف مغامرات جديدة!</p>
+    <button onclick="window.location.href='login.html'">تسجيل الدخول / إنشاء حساب</button>
+  </div>
+</section>
+
+
+<!-- Featured Gallery -->
+<section id="gallery" class="gallery">
+  <!-- Featured Shows Gallery -->
+  <div class="card">
+    <img src="dragon1.jpg" alt="دراغون بول" />
+    <div class="card-content">
+      <h3>دراغون بول</h3>
+      <p>تابع رحلة غوكو من فتى فنون قتالية إلى مدافع الأرض في هذه السلسلة الشهيرة.</p>
+      <a href="Dragonball.html">شاهد الآن</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="conan.jpeg" alt="المحقق كونان" />
+    <div class="card-content">
+      <h3>المحقق كونان</h3>
+      <p>انضم إلى كونان إيدوجاوا وهو يحل الألغاز ويكشف الحقائق الخفية في كل قضية.</p>
+      <a href="Conan.html">شاهد الآن</a>
+    </div>
+  </div>
+
+  <!-- Additional Shows -->
+  <div class="card">
+    <img src="naruto.png" alt="ناروتو" />
+    <div class="card-content">
+      <h3>ناروتو</h3>
+      <p>تابع رحلة ناروتو أوزوماكي ليصبح الهوكاجي لقريته.</p>
+      <a href="naruto.html">شاهد الآن</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="onepiece.jpg" alt="ون بيس" />
+    <div class="card-content">
+      <h3>ون بيس</h3>
+      <p>اركب الأمواج مع لوفي وقراصنة قبعة القش في هذه المغامرة الملحمية.</p>
+      <a href="one-piece.html">شاهد الآن</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="titan.png" alt="هجوم العمالقة" />
+    <div class="card-content">
+      <h3>هجوم العمالقة</h3>
+      <p>يقاتل البشر من أجل البقاء ضد العمالقة الضخام في هذه القصة المشوقة.</p>
+      <a href="attackontitan.html">شاهد الآن</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="socials">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f">فيسبوك</i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter">تويتر</i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram">إنستغرام</i></a>
+  </div>
+  <p>© 2025 جالاكسي الكرتون. جميع الحقوق محفوظة.</p>
+</footer>
+
+</body>
+</html>
